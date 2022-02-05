@@ -1,12 +1,12 @@
-export default class BadRequestError extends Error {
+export default class NotFoundError extends Error {
   statusCode: number;
 
   details: object | undefined;
 
   constructor(message?: string, details?: object | undefined) {
-    super(message || 'BadRequest');
-    this.name = 'BadRequestError';
-    this.statusCode = 400;
+    super(message || 'NotFound');
+    this.name = 'NotFoundError';
+    this.statusCode = 404;
     this.details = details;
   }
 }

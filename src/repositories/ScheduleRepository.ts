@@ -1,34 +1,18 @@
-import fs from 'fs';
-import crypto from 'crypto';
 import Schedule from '../types/Schedule';
+import Database from '../database/Database';
 
 class ScheduleRepository {
+  getAll(): Schedule[] {
+    return Database.findAll();
+  }
+
   create(data: Schedule) {
-    const database = this.getDatabase();
-    const id = this.getRandomId();
-    database.schedules.push({ id, ...data });
-
-    const newDatabase = JSON.stringify(database);
-    fs.writeFileSync(`${__dirname}/../database/database.json`, newDatabase);
+    Database.create(data);
   }
 
-  getDatabase() {
-    const database = fs.readFileSync(
-      `${__dirname}/../database/database.json`,
-      'utf-8'
-    );
-
-    return JSON.parse(database);
+  delete(id: string) {
+    Database.delete(id);
   }
-
-  getRandomId = () => {
-    const currentDate = new Date().valueOf().toString();
-    const random = Math.random().toString();
-    return crypto
-      .createHash('sha1')
-      .update(currentDate + random)
-      .digest('hex');
-  };
 }
 
 export default new ScheduleRepository();

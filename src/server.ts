@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import routes from './routes';
 import errors from './middlewares/errors';
 
-export default class Server {
+class Server {
   private express: Express;
 
   constructor() {
@@ -32,3 +32,5 @@ export default class Server {
     });
   }
 }
+
+export default new Server();

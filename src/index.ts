@@ -1,9 +1,9 @@
 import Server from './server';
-import createDatabase from './database';
+import Database from './database/Database';
 
 try {
-  createDatabase();
-  new Server().init();
+  Database.createDatabase();
+  Server.init();
 } catch (error) {
   // eslint-disable-next-line no-console
   console.log(error);
