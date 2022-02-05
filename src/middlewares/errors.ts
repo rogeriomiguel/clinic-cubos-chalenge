@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import RequestError from '../types/errors';
+import RequestError from '../types/RequestError';
 
 const getErrorName = (name: string) => {
   const isGenericError = !name || name === 'Error';

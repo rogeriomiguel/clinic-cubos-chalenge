@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import routes from './routes';
 import errors from './middlewares/errors';
 
 export default class Server {
@@ -16,7 +17,7 @@ export default class Server {
   }
 
   initializeRoutes() {
-    this.express.use('/', (req, res) => res.json({ status: 'Running' }));
+    this.express.use(routes);
   }
 
   initializeErrors() {
