@@ -6,7 +6,7 @@ type interval = {
 export default interface Schedule {
   type: {
     type: string;
-    value: string | string[] | null;
+    value: string[] | null;
   };
   intervals: interval[];
 }
