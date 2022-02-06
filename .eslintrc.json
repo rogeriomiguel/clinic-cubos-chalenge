@@ -28,7 +28,8 @@
         "prettier/prettier": "error",
         "import/extensions": "off",
         "class-methods-use-this": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "no-plusplus": "off"
     }
  }
  
