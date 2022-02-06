@@ -1,6 +1,11 @@
 // export const formatDate = (date: string) => date.split('-').reverse().join('-');
 import { Week } from '../types/Week';
 
+export const dateValidation =
+  /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
+export const hourValidation =
+  /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
+
 export const getDate = (date: string) => {
   const [year, month, day] = date.split('-').reverse();
   return new Date(Number(year), Number(month) - 1, Number(day));
