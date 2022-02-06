@@ -1,4 +1,4 @@
-import Schedule from '../types/Schedule';
+import { Schedule } from '../types/Schedule';
 import Database from '../database/Database';
 
 class ScheduleRepository {

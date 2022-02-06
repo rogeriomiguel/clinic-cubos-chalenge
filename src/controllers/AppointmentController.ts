@@ -40,7 +40,7 @@ class AppointmentController {
     weekDays.forEach(day => {
       schedules.forEach(schedule => {
         if (schedule.type.type === 'day') {
-          if (schedule.type.value[0] === day.day) {
+          if (schedule.type.values[0] === day.day) {
             const { intervals } = schedule;
             const index = appointments.findIndex(item => item.day === day.day);
 
@@ -70,7 +70,7 @@ class AppointmentController {
         }
 
         if (schedule.type.type === 'weekly') {
-          if (schedule.type.value.includes(day.weekDay)) {
+          if (schedule.type.values.includes(day.weekDay)) {
             const { intervals } = schedule;
             const index = appointments.findIndex(item => item.day === day.day);
 
