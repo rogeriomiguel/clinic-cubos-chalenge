@@ -1,5 +1,5 @@
 // export const formatDate = (date: string) => date.split('-').reverse().join('-');
-import { Week } from '../types/Week';
+import { Week } from '../types/Day';
 
 export const dateValidation =
   /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;

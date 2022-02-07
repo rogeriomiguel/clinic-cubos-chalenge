@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
-import ScheduleRepository from '../repositories/ScheduleRepository';
+import ScheduleDomain from '../domain/ScheduleDomain';
 
 class ScheduleController {
   index(_request: Request, response: Response) {
-    const schedules = ScheduleRepository.getAll();
+    const schedules = ScheduleDomain.getSchedules();
     return response.json(schedules);
   }
 
   store(request: Request, response: Response) {
-    ScheduleRepository.create(request.body);
+    ScheduleDomain.createSchedule(request.body);
     return response.sendStatus(201);
   }
 
   delete(request: Request, response: Response) {
-    ScheduleRepository.delete(request.params.id);
+    ScheduleDomain.deleteSchedule(request.params.id);
     return response.sendStatus(200);
   }
 }

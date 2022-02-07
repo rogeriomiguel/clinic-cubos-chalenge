@@ -2,7 +2,7 @@ export type Week = {
   [key: string]: string;
 };
 
-export type WeekDays = {
+export type Day = {
   day: string;
   weekDay: string;
 };

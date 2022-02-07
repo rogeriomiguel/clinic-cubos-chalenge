@@ -15,7 +15,7 @@ const validateValue = ({ type, values }: Schedule['type']) => {
   if (type.toLowerCase() === 'day')
     schema = Joi.array().required().items(daySchema);
 
-  if (type.toLowerCase() === 'daily') schema = Joi.array().allow(null);
+  if (type.toLowerCase() === 'daily') schema = Joi.array();
 
   if (type.toLowerCase() === 'weekly')
     schema = Joi.array().required().items(weeklySchema);
@@ -32,9 +32,9 @@ export const validateScheduleBody = (
   _response: Response,
   next: NextFunction
 ) => {
-  const scheduleSchema = Joi.object({
+  const typeSchema = Joi.object({
     type: Joi.string().valid('day', 'daily', 'weekly').required(),
-    values: [Joi.array().optional(), Joi.allow(null)],
+    values: Joi.array(),
   }).required();
 
   const intervalSchema = Joi.object({
@@ -43,7 +43,7 @@ export const validateScheduleBody = (
   }).required();
 
   const schema = Joi.object({
-    type: scheduleSchema,
+    type: typeSchema,
     intervals: Joi.array().required().items(intervalSchema),
   });
 
