@@ -1,4 +1,4 @@
-export type interval = {
+export type Interval = {
   start: string;
   end: string;
 };
@@ -9,5 +9,5 @@ export interface Schedule {
     type: string;
     values: string[];
   };
-  intervals: interval[];
+  intervals: Interval[];
 }

@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import Joi from 'joi';
 import BadRequestError from '../../errors/BadRequest';
-import { Schedule } from '../../types/Schedule';
-import { dateValidation, hourValidation } from '../../utils/dates';
+import { Interval, Schedule } from '../../types/Schedule';
+import {
+  dateValidation,
+  hourValidation,
+  getHourNumber,
+} from '../../utils/dates';
 
 const validateValue = ({ type, values }: Schedule['type']) => {
   let schema = Joi.array();
@@ -24,6 +28,25 @@ const validateValue = ({ type, values }: Schedule['type']) => {
 
   if (error) {
     throw new BadRequestError(error.message);
+  }
+};
+
+const validateIntervals = (intervals: Interval[]) => {
+  let invalidInterval: Interval | undefined;
+
+  intervals.forEach(interval => {
+    const start = getHourNumber(interval.start);
+    const end = getHourNumber(interval.end);
+
+    if (start >= end) {
+      invalidInterval = interval;
+    }
+  });
+
+  if (invalidInterval) {
+    throw new BadRequestError(`'start' cannot be bigger than 'end'`, {
+      invalidInterval,
+    });
   }
 };
 
@@ -53,6 +76,7 @@ export const validateScheduleBody = (
     throw new BadRequestError(error.message);
   }
 
+  validateIntervals(request.body.intervals);
   validateValue(request.body.type);
 
   next();

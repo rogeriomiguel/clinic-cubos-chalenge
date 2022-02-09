@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Joi from 'joi';
 import BadRequestError from '../../errors/BadRequest';
-import { interval } from '../../types/Schedule';
+import { Interval } from '../../types/Schedule';
 import { dateValidation, getDate } from '../../utils/dates';
 
 export const validateAppointmentQuery = (
@@ -20,10 +20,12 @@ export const validateAppointmentQuery = (
     throw new BadRequestError(error.message);
   }
 
-  const { start, end } = request.query as interval;
+  const { start, end } = request.query as Interval;
 
   if (getDate(start).valueOf() > getDate(end).valueOf()) {
-    throw new BadRequestError(`'start' cannot be bigger than 'end' `);
+    throw new BadRequestError(`'start' cannot be bigger than 'end'`, {
+      range: { start, end },
+    });
   }
 
   next();

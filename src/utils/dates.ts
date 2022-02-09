@@ -1,10 +1,10 @@
 // export const formatDate = (date: string) => date.split('-').reverse().join('-');
 import { Week } from '../types/Day';
+import { Interval } from '../types/Schedule';
 
 export const dateValidation =
   /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
-export const hourValidation =
-  /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
+export const hourValidation = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 
 export const getDate = (date: string) => {
   const [year, month, day] = date.split('-').reverse();
@@ -38,4 +38,38 @@ const week: Week = {
 export const getWeekDay = (date: Date) => {
   const weekDay = date.getDay();
   return week[weekDay];
+};
+
+export const getHourNumber = (dateHour: string) => {
+  const [hour, minutes] = dateHour.split(':');
+  return Number(hour) * 60 + Number(minutes);
+};
+
+export const verifyHourConflict = (
+  intervalA: Interval,
+  intervalB: Interval
+) => {
+  let isBetween = false;
+  const startA = getHourNumber(intervalA.start);
+  const endA = getHourNumber(intervalA.end);
+  const startB = getHourNumber(intervalB.start);
+  const endB = getHourNumber(intervalB.end);
+
+  const isStartBetween = startA <= startB && startB <= endA;
+  const isEndBetween = startA <= endB && endB <= endA;
+  const isEndAfter = startB <= startA && endB >= endA;
+
+  if (isStartBetween) {
+    isBetween = true;
+  }
+
+  if (isEndBetween) {
+    isBetween = true;
+  }
+
+  if (isEndAfter) {
+    isBetween = true;
+  }
+
+  return isBetween;
 };

@@ -2,13 +2,13 @@
 import ScheduleRepository from '../repositories/ScheduleRepository';
 import { getDate, getDaysRange, formatDate, getWeekDay } from '../utils/dates';
 import { Day } from '../types/Day';
-import { interval, Schedule } from '../types/Schedule';
+import { Interval, Schedule } from '../types/Schedule';
 import { Appointment } from '../types/Appointment';
 
 const MS_DAY = 86400;
 
 class AppointmentDomain {
-  getAppointments({ start, end }: interval): Appointment[] {
+  getAppointments({ start, end }: Interval): Appointment[] {
     const days = this.getDays({ start, end });
     const schedules = ScheduleRepository.getAll();
     const appointments = this.mountAppointments(days, schedules);
@@ -18,7 +18,7 @@ class AppointmentDomain {
     });
   }
 
-  getDays({ start, end }: interval): Day[] {
+  getDays({ start, end }: Interval): Day[] {
     const startDate = getDate(start);
     const endDate = getDate(end);
     const daysRange = getDaysRange(startDate, endDate);
@@ -96,7 +96,7 @@ class AppointmentDomain {
     return appointments;
   }
 
-  sortIntervals(a: interval, b: interval) {
+  sortIntervals(a: Interval, b: Interval) {
     return (
       Number(a.start.replace(':', '.')) - Number(b.start.replace(':', '.'))
     );
