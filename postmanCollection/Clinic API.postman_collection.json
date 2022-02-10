@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "c4d57c8f-4893-4088-8068-2448574ad19b",
+		"name": "Clinic API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Schedules - Store 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": {\n\t\t\"type\": \"day\",\n\t\t\"values\": [\n\t\t\t\"25-06-2018\"\n\t\t]\n\t},\n\t\"intervals\": [\n\t\t{\n\t\t\t\"start\": \"09:10\",\n\t\t\t\"end\": \"10:20\"\n\t\t},\n        {\n\t\t\t\"start\": \"10:30\",\n\t\t\t\"end\": \"11:00\"\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedules - Store 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": {\n\t\t\"type\": \"daily\",\n\t\t\"values\": []\n\t},\n\t\"intervals\": [\n\t\t{\n\t\t\t\"start\": \"09:30\",\n\t\t\t\"end\": \"10:10\"\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedules - Store 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": {\n\t\t\"type\": \"weekly\",\n\t\t\"values\": [\"mon\", \"wed\"]\n\t},\n\t\"intervals\": [\n\t\t{\n\t\t\t\"start\": \"14:00\",\n\t\t\t\"end\": \"14:30\"\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedules - Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": {\n\t\t\"type\": \"day\",\n\t\t\"values\": [\n\t\t\t\"01-02-2022\"\n\t\t]\n\t},\n\t\"intervals\": [\n\t\t{\n\t\t\t\"start\": \"10:00\",\n\t\t\t\"end\": \"10:30\"\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules/cd8ed87f0287f0df395e0b0d717807ee3d84003f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules",
+						"cd8ed87f0287f0df395e0b0d717807ee3d84003f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedules - Index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Appointments - Index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/appointments?start=01-02-2022&end=10-02-2022",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"appointments"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "01-02-2022"
+						},
+						{
+							"key": "end",
+							"value": "10-02-2022"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
