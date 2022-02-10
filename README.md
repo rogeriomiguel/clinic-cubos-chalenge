@@ -38,4 +38,3 @@ npm run dev
 ```
 ## O que ainda não foi implementado (baseado no desafio)
 - Testes unitários;
-- Documentação;
