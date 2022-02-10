@@ -2,8 +2,12 @@ import fs from 'fs';
 import crypto from 'crypto';
 import NotFoundError from '../errors/NotFoundError';
 
+const path = `${__dirname}/data`;
+
 class Database {
   createDatabase() {
+    fs.mkdirSync(path, { recursive: true });
+
     const databaseExists = fs.existsSync(`${__dirname}/data/database.json`);
 
     if (!databaseExists) {
@@ -13,17 +17,14 @@ class Database {
 
       const database = JSON.stringify(obj);
 
-      fs.writeFileSync(`${__dirname}/data/database.json`, database);
+      fs.writeFileSync(`${path}/database.json`, database);
       // eslint-disable-next-line no-console
       console.log('Database created');
     }
   }
 
   getDatabase() {
-    const database = fs.readFileSync(
-      `${__dirname}/data/database.json`,
-      'utf-8'
-    );
+    const database = fs.readFileSync(`${path}/database.json`, 'utf-8');
 
     return JSON.parse(database);
   }
@@ -48,7 +49,7 @@ class Database {
     database.schedules.push({ id, ...data });
 
     const updatedDatabase = JSON.stringify(database);
-    fs.writeFileSync(`${__dirname}/data/database.json`, updatedDatabase);
+    fs.writeFileSync(`${path}/database.json`, updatedDatabase);
   }
 
   delete(id: string) {
@@ -64,7 +65,7 @@ class Database {
     database.schedules.splice(index, 1);
 
     const updatedDatabase = JSON.stringify(database);
-    fs.writeFileSync(`${__dirname}/data/database.json`, updatedDatabase);
+    fs.writeFileSync(`${path}/database.json`, updatedDatabase);
   }
 }
 
