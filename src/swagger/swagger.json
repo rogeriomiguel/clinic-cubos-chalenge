@@ -1,0 +1,402 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Clinic API",
+    "version": "1.0.0",
+    "description": "Clinic API documentation",
+    "contact": {
+      "name": "Rogerio Miguel"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local"
+    }
+  ],
+  "paths": {
+    "/schedules": {
+      "get": {
+        "tags": [
+          "Schedules"
+        ],
+        "summary": "Return all schedules",
+        "operationId": "schedules_index",
+        "responses": {
+          "200": {
+            "description": "JSON object return",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/index_schedules"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badrequest_error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Interval Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Schedules"
+        ],
+        "summary": "Create schedule",
+        "operationId": "schedules_store",
+        "requestBody": {
+          "description": "Payload utilizado para criar schedules <br/>  Utilize o payload de acordo com o schedule que deseja criar *day*, *daily* ou *weekly*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_schedule_payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Eequest Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badrequest_error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Interval Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedules/{id}": {
+      "delete": {
+        "tags": [
+          "Schedules"
+        ],
+        "summary": "Delete schedule",
+        "operationId": "schedules_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id do schedule.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "496158e9d7f859b2cc9cc57c3b44aa248dfda"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not Found Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/not_found_error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Interval server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments": {
+      "get": {
+        "tags": [
+          "appointments"
+        ],
+        "summary": "Appointments list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start",
+            "schema": {
+              "type": "string",
+              "example": "25-06-2018"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "schema": {
+              "type": "string",
+              "example": "29-06-2018"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON object return",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/index_appointments"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badrequest_error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Interval Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "badrequest_error": {
+        "properties": {
+          "message": {
+            "example": "BadRequest"
+          },
+          "error": {
+            "example": "BadRequestError"
+          },
+          "statusCode": {
+            "example": 400
+          },
+          "details": {
+            "type": "object",
+            "default": {}
+          }
+        }
+      },
+      "internal_server_error": {
+        "properties": {
+          "message": {
+            "example": "Internal Server Error"
+          },
+          "error": {
+            "example": "InternalServerError"
+          },
+          "statusCode": {
+            "example": 500
+          },
+          "details": {
+            "type": "object",
+            "default": {}
+          }
+        }
+      },
+      "not_found_error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "example": "Not found Error"
+          },
+          "error": {
+            "example": "NotFound"
+          },
+          "statusCode": {
+            "example": 404
+          },
+          "details": {
+            "type": "object",
+            "default": {}
+          }
+        }
+      },
+      "index_schedules": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "intervals": {
+              "$ref": "#/components/schemas/intervals"
+            }
+          }
+        }
+      },
+      "index_appointments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "day": {
+              "type": "string",
+              "example": "25-06-2018"
+            },
+            "intervals": {
+              "$ref": "#/components/schemas/intervals"
+            }
+          }
+        }
+      },
+      "intervals": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string",
+              "example": "10:00"
+            },
+            "end": {
+              "type": "string",
+              "example": "10:30"
+            }
+          }
+        }
+      },
+      "create_schedule_payload": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "$ref": "#/components/schemas/create_schedule_day"
+          },
+          "daily": {
+            "$ref": "#/components/schemas/create_schedule_daily"
+          },
+          "weekly": {
+            "$ref": "#/components/schemas/create_schedule_weekly"
+          }
+        }
+      },
+      "create_schedule_day": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "day"
+              },
+              "values": {
+                "example": [
+                  "25-06-2018"
+                ]
+              }
+            }
+          },
+          "intervals": {
+            "$ref": "#/components/schemas/intervals"
+          }
+        }
+      },
+      "create_schedule_daily": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "daily"
+              },
+              "values": {
+                "example": []
+              }
+            }
+          },
+          "intervals": {
+            "$ref": "#/components/schemas/intervals"
+          }
+        }
+      },
+      "create_schedule_weekly": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "weekly"
+              },
+              "values": {
+                "example": [
+                  "sun",
+                  "mon",
+                  "tue",
+                  "wed",
+                  "thu",
+                  "fri",
+                  "sat"
+                ]
+              }
+            }
+          },
+          "intervals": {
+            "$ref": "#/components/schemas/intervals"
+          }
+        }
+      }
+    }
+  }
+}

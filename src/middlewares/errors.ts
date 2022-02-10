@@ -27,7 +27,7 @@ export default (
 
   const errorBody = {
     message,
-    name: getErrorName(name),
+    error: getErrorName(name),
     statusCode,
     details,
   };
